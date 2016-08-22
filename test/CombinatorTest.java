@@ -1,5 +1,10 @@
+import assignment1.AddSalary;
+import assignment1.Combinator;
 import assignment1.Employee;
+import assignment1.LongestName;
 import org.junit.Test;
+
+import static junit.framework.TestCase.assertEquals;
 
 public class CombinatorTest {
 
@@ -8,29 +13,43 @@ public class CombinatorTest {
     private final int MIN_SALARY = 3000;
     private final int MAX_SALARY = 5000;
 
+    Combinator<Employee, Integer> salaryCombinator = new AddSalary();
+    Combinator<Employee, String> longestNameCombinator = new LongestName();
+
     @Test
     public void testAddSalaryForAssociativity() {
-        for (int i = 0; i < 1000; i++) {
-            Employee e_1 = genEmployee();
-            Employee e_2 = genEmployee();
-//            AddSalary
-//            assertEquals(e_1)
-        }
-    }
-
-    @Test
-    public void testAddSalaryForNeutralElement() {
-
+        testAssociativityOneThousandTimes(salaryCombinator);
     }
 
     @Test
     public void testLongestNameForAssociativity() {
+        testAssociativityOneThousandTimes(longestNameCombinator);
+    }
 
+    @Test
+    public void testAddSalaryForNeutralElement() {
+        testNeutralElementOneThousandTimes(salaryCombinator);
     }
 
     @Test
     public void testLongestNameForNeutralElement() {
+        testNeutralElementOneThousandTimes(longestNameCombinator);
+    }
 
+    private void testAssociativityOneThousandTimes(Combinator c) {
+        for (int i = 0; i < 1000; i++) {
+            Employee e_1 = genEmployee();
+            Employee e_2 = genEmployee();
+            Employee e_3 = genEmployee();
+            assertEquals(c.combine(c.get(e_1), c.combine(c.get(e_2), c.get(e_3))), c.combine(c.combine(c.get(e_1), c.get(e_2)), c.get(e_3)));
+        }
+    }
+
+    private void testNeutralElementOneThousandTimes(Combinator c) {
+        for (int i = 0; i < 1000; i++) {
+            Employee employee = genEmployee();
+            assertEquals(c.combine(c.get(employee), c.neutral()), c.combine(c.neutral(), c.get(employee)));
+        }
     }
 
     private Employee genEmployee() {
