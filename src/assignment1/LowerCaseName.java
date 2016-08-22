@@ -5,7 +5,7 @@ public class LowerCaseName implements Mutator<Employee> {
 
     @Override
     public void mutate(Employee x) {
-
+        x.setName(x.getName().toLowerCase());
     }
 
 }
