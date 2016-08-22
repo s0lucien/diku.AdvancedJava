@@ -18,6 +18,10 @@ public class ListMutatorTest {
         testListMutation(new ListMutatorParallel());
     }
 
+    @Test
+    public void testListMutatorChunked() {
+        testListMutation(new ListMutatorChunked());
+    }
 
 
     private ArrayList<Employee> dataSet() {
