@@ -13,27 +13,24 @@ public class CombinatorTest {
     private final int MIN_SALARY = 3000;
     private final int MAX_SALARY = 5000;
 
-    Combinator<Employee, Integer> salaryCombinator = new AddSalary();
-    Combinator<Employee, String> longestNameCombinator = new LongestName();
-
     @Test
     public void testAddSalaryForAssociativity() {
-        testAssociativityOneThousandTimes(salaryCombinator);
+        testAssociativityOneThousandTimes(new AddSalary());
     }
 
     @Test
     public void testLongestNameForAssociativity() {
-        testAssociativityOneThousandTimes(longestNameCombinator);
+        testAssociativityOneThousandTimes(new LongestName());
     }
 
     @Test
     public void testAddSalaryForNeutralElement() {
-        testNeutralElementOneThousandTimes(salaryCombinator);
+        testNeutralElementOneThousandTimes(new AddSalary());
     }
 
     @Test
     public void testLongestNameForNeutralElement() {
-        testNeutralElementOneThousandTimes(longestNameCombinator);
+        testNeutralElementOneThousandTimes(new LongestName());
     }
 
     private void testAssociativityOneThousandTimes(Combinator c) {
