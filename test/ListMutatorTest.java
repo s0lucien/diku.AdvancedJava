@@ -8,18 +8,18 @@ import static org.junit.Assert.assertEquals;
 public class ListMutatorTest {
 
     @Test
-    public void testListMutatorSequential() {
+    public void testListMutatorSequential() throws InterruptedException {
         testListMutation(new ListMutatorSequential());
     }
 
     @Test
-    public void testListMutatorParallel() {
+    public void testListMutatorParallel() throws InterruptedException {
         // It is flickering, because the threads do not finish in the same sequence as they started.
         testListMutation(new ListMutatorParallel());
     }
 
     @Test
-    public void testListMutatorChunked() {
+    public void testListMutatorChunked() throws InterruptedException {
         testListMutation(new ListMutatorChunked());
     }
 
@@ -39,7 +39,7 @@ public class ListMutatorTest {
         return result;
     }
 
-    private void testListMutation(ListMutator lm) {
+    private void testListMutation(ListMutator lm) throws InterruptedException {
         ArrayList<Employee> data = dataSet();
         lm.listMutate(new IncreaseSalary(), data);
         assertEquals(data.get(0).getSalary(), 3000);
