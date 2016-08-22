@@ -4,7 +4,7 @@ public class LongestName implements Combinator<Employee, String> {
 
     @Override
     public String neutral() {
-        return null;
+        return "";
     }
 
     @Override

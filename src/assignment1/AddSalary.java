@@ -6,7 +6,7 @@ package assignment1;
 public class AddSalary implements Combinator<Employee,Integer> {
     @Override
     public Integer neutral() {
-        return null;
+        return 0;
     }
 
     @Override
