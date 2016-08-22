@@ -16,8 +16,9 @@ public class CombinatorTest {
     }
 
     private Employee genEmployee() {
-        int randomAge = MIN_AGE + (int)(Math.random() * MAX_AGE);
+//        int randomAge = ;
+//        int randomSalary = ;
 
-        return new Employee("John Doe", 1, 1 );
+        return new Employee("John Doe", MIN_AGE + (int)(Math.random() * MAX_AGE), MIN_SALARY + (int)(Math.random() * MAX_SALARY) );
     }
 }
