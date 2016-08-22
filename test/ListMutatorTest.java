@@ -1,14 +1,16 @@
 import assignment1.Employee;
+import assignment1.IncreaseSalary;
 import assignment1.ListMutator;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
+import static org.junit.Assert.assertEquals;
+
 public class ListMutatorTest {
     @Test
-    public void testSomething() {
-//        testListMutation();
-//        assertEquals(dataSet().get(0),5);
+    public void testListMutatorSequential() {
+        //testListMutation();
     }
 
     private ArrayList<Employee> dataSet() {
@@ -30,13 +32,19 @@ public class ListMutatorTest {
         // = 119
     }
 
-    /*
-    . Writeaprivatemethodcalled testListMutationthattakesa ListMutator implementation as input, runs a map of IncreaseSalary on your
-    data set, sums the salaries of the employees and asserts the equality
-    of the actual sum of salaries with the expected.
-     */
-
-    private void testListMutation(ListMutator lm) {
-//        assertEquals(lm.listMutate(new IncreaseSalary(), dataSet()), 41999+119);
+    @Test
+    public void testListMutation(ListMutator lm) {
+        ArrayList<Employee> data = dataSet();
+        lm.listMutate(new IncreaseSalary(), data);
+        assertEquals(data.get(0).getSalary(), 3000);
+        assertEquals(data.get(1).getSalary(), 2500);
+        assertEquals(data.get(2).getSalary(), 3000);
+        assertEquals(data.get(3).getSalary(), 3000);
+        assertEquals(data.get(4).getSalary(), 8000);
+        assertEquals(data.get(5).getSalary(), 3000);
+        assertEquals(data.get(6).getSalary(), 1024);
+        assertEquals(data.get(7).getSalary(), 5023);
+        assertEquals(data.get(8).getSalary(), 2033);
+        assertEquals(data.get(9).getSalary(), 2533);
     }
 }
