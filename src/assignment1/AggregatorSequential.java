@@ -4,11 +4,17 @@ import java.util.List;
 
 public class AggregatorSequential implements Aggregator<Employee, Integer>{
 
+    private Integer result;
+
+    public AggregatorSequential() {
+        this.result = 0;
+    }
+
     @Override
     public Integer aggregate(Combinator<Employee, Integer> c, List<Employee> l) {
-        Integer result = 0;
-        for (Employee employee: l)
-            result += c.get(employee);
-        return result;
+        for (Employee employee: l) {
+            this.result = c.combine(this.result, c.get(employee));
+        }
+        return this.result;
     }
 }

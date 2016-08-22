@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import static junit.framework.TestCase.assertEquals;
 
 public class AggregatorTest {
+
     @Test
     public void testAggregatorSequential() {
         testAggregation(new AggregatorSequential());
