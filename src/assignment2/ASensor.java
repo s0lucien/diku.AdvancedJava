@@ -11,10 +11,10 @@ public class ASensor implements Sensor, Runnable {
 		humidity random number between 40 - 100 - same reason as above
 	*/
 
-	private final float MIN_TEMPERATURE = 0;
-	private final float MAX_TEMPERATURE = 60;
-	private final float MIN_HUMIDITY = 40;
-	private final float MAX_HUMIDITY = 100;
+	public static final float MIN_TEMPERATURE = 0;
+	public static final float MAX_TEMPERATURE = 60;
+	public static final float MIN_HUMIDITY = 40;
+	public static final float MAX_HUMIDITY = 100;
 	private final int SAMPLING_TIMEOUT = 100;  // 0.1 sec, so we don't get flooded
 	private List<Monitor> monitors = new ArrayList<>(); //A sensor can push readings to one or many monitors
 
