@@ -16,13 +16,4 @@ public class SensorTest {
         }
     }
 
-    @Test
-    public void testRun() {
-
-    }
-
-    @Test
-    public void testRegisterMonitor() {
-
-    }
 }

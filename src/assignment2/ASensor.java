@@ -44,7 +44,7 @@ public class ASensor implements Sensor, Runnable {
 
 	@Override
 	public synchronized void registerMonitor(List<Monitor> sm) {
-		this.monitors = sm;
+		this.monitors.addAll(sm);
 	}
 
 }
