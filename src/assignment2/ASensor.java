@@ -15,6 +15,7 @@ public class ASensor implements Sensor, Runnable {
 	private final float MAX_TEMPERATURE = 60;
 	private final float MIN_HUMIDITY = 40;
 	private final float MAX_HUMIDITY = 100;
+	private final int SAMPLING_TIMEOUT = 100;  // 0.1 sec, so we don't get flooded
 	private List<Monitor> monitors = new ArrayList<>(); //A sensor can push readings to one or many monitors
 
 	public SensorReading generateSensorReading() {
@@ -33,7 +34,7 @@ public class ASensor implements Sensor, Runnable {
 				sm.pushReading(reading);
 			}
 			try {
-				Thread.sleep(100); // 0.1 sec, so we don't get flooded
+				Thread.sleep(SAMPLING_TIMEOUT);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
