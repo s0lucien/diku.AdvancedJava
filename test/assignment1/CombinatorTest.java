@@ -1,3 +1,5 @@
+package assignment1;
+
 import assignment1.AddSalary;
 import assignment1.Combinator;
 import assignment1.Employee;

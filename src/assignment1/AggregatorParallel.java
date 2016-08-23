@@ -19,6 +19,11 @@ public class AggregatorParallel implements Aggregator<Employee, Integer>{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+//        try {
+//            Thread.currentThread().wait();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         return result;
     }
 
@@ -32,6 +37,7 @@ public class AggregatorParallel implements Aggregator<Employee, Integer>{
                     divideAndConquer(tail, c);
                 } else {
                     result = c.combine(result, c.get(list.get(0)));
+//                    notify();
                 }
             }
         }.start();

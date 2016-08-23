@@ -1,4 +1,5 @@
-import assignment1.*;
+package assignment1;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
