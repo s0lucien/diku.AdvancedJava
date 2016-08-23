@@ -9,7 +9,15 @@ package assignment2;
 public class SensorReading {
 	private float humidity;
 	private float temperature;
-	
+	public SensorReading (float temp, float hum){
+		this.humidity=hum;
+		this.temperature = temp;
+	}
+
+	public SensorReading() {
+
+	}
+
 	public float getHumidity() {
 		return humidity;
 	}
