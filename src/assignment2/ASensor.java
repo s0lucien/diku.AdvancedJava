@@ -10,6 +10,7 @@ public class ASensor implements Sensor, Runnable {
 		temp random number between 0 - 60 - gives statistically best results when generating random SensorReading objects
 		humidity random number between 40 - 100 - same reason as above
 	*/
+
 	private final float MIN_TEMPERATURE = 0;
 	private final float MAX_TEMPERATURE = 60;
 	private final float MIN_HUMIDITY = 40;
@@ -19,9 +20,8 @@ public class ASensor implements Sensor, Runnable {
 	public SensorReading generateSensorReading() {
 		SensorReading reading = new SensorReading();
 		Random rnd = new Random();
-		reading.setTemperature((rnd.nextFloat() * (MAX_TEMPERATURE - MIN_TEMPERATURE)) );
-		reading.setHumidity((rnd.nextFloat() * (MAX_HUMIDITY - MIN_HUMIDITY)) );
-		System.out.println(reading.toString());
+		reading.setTemperature((rnd.nextFloat() * (MAX_TEMPERATURE - MIN_TEMPERATURE)) + MIN_TEMPERATURE);
+		reading.setHumidity((rnd.nextFloat() * (MAX_HUMIDITY - MIN_HUMIDITY)) + MIN_HUMIDITY);
 		return reading;
 	}
 
