@@ -22,4 +22,9 @@ public class SensorReading {
 	public void setTemperature(float temperature) {
 		this.temperature = temperature;
 	}
+
+	@Override
+	public String toString() {
+		return this.temperature + " " + this.humidity;
+	}
 }

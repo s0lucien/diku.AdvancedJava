@@ -5,6 +5,7 @@ public class AMonitor implements Monitor, Runnable {
 	@Override
 	public void pushReading(SensorReading sensorInput) {
 		// TODO Auto-generated method stub
+		System.out.println("Received a reading");
 	}
 
 	@Override

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/diku.AdvancedJava.Assignment1.iml" filepath="$PROJECT_DIR$/diku.AdvancedJava.Assignment1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diku.AdvancedJava.iml" filepath="$PROJECT_DIR$/diku.AdvancedJava.iml" />
     </modules>
   </component>
 </project>
