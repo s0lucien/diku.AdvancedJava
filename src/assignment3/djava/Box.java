@@ -1,5 +1,7 @@
 package assignment3.djava;
 
+import java.lang.reflect.Field;
+
 /**
  * A box that encapsulates an object, providing access to fields and method
  * through reflection.
@@ -8,6 +10,12 @@ package assignment3.djava;
  * 
  */
 public class Box {
+
+//	private Box objClass;
+//	private HashMap<String, Box> methods;
+	private Box[] fields;
+//	private HashMap<String, Box> fields = new HashMap<>();
+
 
 	/**
 	 * The boxed object.
@@ -22,6 +30,27 @@ public class Box {
 	 */
 	public Box(Object obj) {
 		this.boxedObject = obj;
+		Class<?> oc= this.boxedObject.getClass();
+//		this.objClass = new Box(oc);
+		
+//		Method[] me = oc.getDeclaredMethods();
+//		for (Method m:me) {
+//			this.methods.put(m.getName(), new Box(m));
+//		}
+		
+		Field[] fi = oc.getDeclaredFields();
+		this.fields = new Box[fi.length];
+		for (int i = 0; i < fi.length; i++) {
+			Field f = fi[i];
+			this.fields[i] = new Box(f.getName(), null);
+		}
+
+
+		new Box(oc.getName(), this.fields);
+
+//		System.out.println("breakpoint");
+
+		//new Box(objClass, resolvedFields);
 	}
 
 	/**
@@ -36,6 +65,13 @@ public class Box {
 	 *            The (boxed) arguments given to the constructor.
 	 */
 	public Box(String className, Box... boxedArgs) {
+//		try {
+			System.out.println("how to resolve the constructors ?  " +
+					"Should we create a new object, or simply wrap existing fields?. " +
+					"We tried a lot of stuff but gave up");
+//		} catch (ClassNotFoundException ex) {
+//			Box exception = new Box(ex);
+//		}
 		// TODO
 	}
 
@@ -48,7 +84,6 @@ public class Box {
 	 *         on failure.
 	 */
 	Box get(String fieldName) {
-		// TODO
 		return null;
 	}
 
@@ -77,7 +112,7 @@ public class Box {
 	 *         (unboxed) null), or a boxed exception on failure.
 	 */
 	Box call(String methodName, Box... boxedArgs) {
-		// TODO
+
 		return null;
 	}
 
@@ -92,7 +127,16 @@ public class Box {
 	 */
 	@Override
 	public String toString() {
-		// TODO
-		return null;
+//		String s = this.boxedObject.getClass().getName() + '['+fields.toString()+']';
+//		return s;
+		return "";
+
 	}
+	
+	/*private fieldsToSting(){
+		for (String key:
+			 ) {
+			
+		}
+	}*/
 }
