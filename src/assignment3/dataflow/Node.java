@@ -24,17 +24,17 @@ public class Node<I, O> extends Thread {
 	/**
 	 * The list of subscribers to this node.
 	 */
-	private List subscribers;
+	private List<Node<O, ?>> subscribers;
 
 	/**
 	 * The queue of inputs (contains values of type I).
 	 */
-	private BlockingDeque inputs;
+	private BlockingDeque<I> inputs;
 
 	/**
 	 * The processor of this node. See {@link Processor}.
 	 */
-	private Processor processor;
+	private Processor<I,O> processor;
 
 	/**
 	 * Constructs a new node.
@@ -78,11 +78,11 @@ public class Node<I, O> extends Thread {
 		while (true) {
 			try {
 
-				Iterator iter = processor.process(inputs.takeLast());
+				Iterator<O> iter = processor.process(inputs.takeLast());
 				while (iter.hasNext()) {
-					Object next = iter.next();
-					for (Object sub : subscribers) {
-						((Node) sub).push(next);
+					O next = iter.next();
+					for (Node<O,? > sub : subscribers) {
+						sub.push(next);
 					}
 				}
 
