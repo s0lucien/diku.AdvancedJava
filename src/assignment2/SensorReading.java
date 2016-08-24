@@ -9,6 +9,7 @@ package assignment2;
 public class SensorReading {
 	private float humidity;
 	private float temperature;
+
 	public SensorReading (float temp, float hum){
 		this.humidity=hum;
 		this.temperature = temp;
@@ -31,6 +32,39 @@ public class SensorReading {
 		this.temperature = temperature;
 	}
 
+	public int getDiscomfortLevel() {
+		int temperatureLevel = 0;
+		int humidityLevel = 0;
+		if (this.temperature < 10) {
+			temperatureLevel = 0;
+		} else if (this.temperature >= 10 && this.temperature < 20) {
+			temperatureLevel = 1;
+		} else if (this.temperature >= 20 && this.temperature < 30) {
+			temperatureLevel = 2;
+		} else if (this.temperature >= 30 && this.temperature < 40) {
+			temperatureLevel = 3;
+		} else if (this.temperature >= 40 && this.temperature < 50) {
+			temperatureLevel = 4;
+		} else if (this.temperature >= 50) {
+			temperatureLevel = 5;
+		}
+
+		if (this.humidity < 50) {
+			humidityLevel = 0;
+		} else if (this.humidity >= 50 && this.humidity < 60) {
+			humidityLevel = 1;
+		} else if (this.humidity >= 60 && this.humidity < 70) {
+			humidityLevel = 2;
+		} else if (this.humidity >= 70 && this.humidity < 80) {
+			humidityLevel = 3;
+		} else if (this.humidity >= 80 && this.humidity < 90) {
+			humidityLevel = 4;
+		} else if (this.humidity >= 90) {
+			humidityLevel = 5;
+		}
+
+		return Math.max(temperatureLevel, humidityLevel);
+	}
 	@Override
 	public String toString() {
 		return this.temperature + " " + this.humidity;

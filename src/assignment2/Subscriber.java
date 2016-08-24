@@ -11,7 +11,7 @@ public interface Subscriber {
 	/**
 	 * Processes a discomfortLevel warning
 	 * 
-	 * @param discomfortlevel
+	 * @param discomfortLevel
 	 */
 	public void processDiscomfortWarning(int discomfortLevel);
 

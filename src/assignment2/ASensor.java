@@ -18,6 +18,7 @@ public class ASensor implements Sensor, Runnable {
 	private final int SAMPLING_TIMEOUT = 100;  // 0.1 sec, so we don't get flooded
 	private List<Monitor> monitors = new ArrayList<>(); //A sensor can push readings to one or many monitors
 
+
 	public SensorReading generateSensorReading() {
 		SensorReading reading = new SensorReading();
 		Random rnd = new Random();

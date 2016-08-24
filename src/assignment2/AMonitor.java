@@ -1,56 +1,63 @@
 package assignment2;
 
-import assignment1.Combinator;
-
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.Semaphore;
 
 public class AMonitor implements Monitor, Runnable {
 
-	private final int SENSOR_READS_QUEUE_SIZE = 100;
-	ArrayBlockingQueue<SensorReading> SensorReads;
-	public SensorReading SensorValueMean;
+	private final int SENSOR_READS_QUEUE_SIZE = 3;
+	private ArrayBlockingQueue<SensorReading> sensorReads = new ArrayBlockingQueue<>(SENSOR_READS_QUEUE_SIZE);
+	private SensorReading SensorValueMean;
+	private HashMap<Subscriber, Integer> subscribers = new HashMap<>(); //A monitor can push discomfort warnings to one or many subscribers
 
-	public AMonitor(){
-		SensorReads = new ArrayBlockingQueue<SensorReading>(SENSOR_READS_QUEUE_SIZE);
-
-	}
 	@Override
 	public void pushReading(SensorReading sensorInput) {
-		System.out.println("Received a reading");
-		SensorReads.add( sensorInput);
+		try {
+			sensorReads.add(sensorInput);
+		} catch (IllegalStateException ex) {
+			// reads are dropped if queue is full
+		}
 	}
 
 	@Override
 	public void processReading(SensorReading sensorInput) {
-		// TODO Auto-generated method stub
-		SensorReadingSequentialAggregator agg = new SensorReadingSequentialAggregator();
-		ArrayList bufferedSensorReads = new ArrayList<SensorReading>();
-		SensorReads.drainTo(bufferedSensorReads);
-		AverageSensorReading c = new AverageSensorReading();
-		SensorReading bufferMean = agg.aggregate(c, bufferedSensorReads);
-		this.SensorValueMean = c.combine(bufferMean,SensorValueMean);
-		//Note that you need to push computed discomfort levels to the registered
-		//subscribers using the pushDiscomfortWarning method in Subscriber interface
-		
+//		SensorReadingSequentialAggregator agg = new SensorReadingSequentialAggregator();
+//		ArrayList bufferedSensorReads = new ArrayList<SensorReading>();
+//		sensorReads.drainTo(bufferedSensorReads);
+//		AverageSensorReading c = new AverageSensorReading();
+//		SensorReading bufferMean = agg.aggregate(c, bufferedSensorReads);
+//		this.SensorValueMean = c.combine(bufferMean,SensorValueMean);
+
+		int discomfortLevel = sensorInput.getDiscomfortLevel();
+		Iterator i = subscribers.entrySet().iterator();
+		while (i.hasNext()) {
+			Map.Entry pair = (Map.Entry) i.next();
+			Subscriber subscriber = (Subscriber) pair.getKey();
+			Integer maxDiscomfortLevel = (Integer) pair.getValue();
+			if (discomfortLevel >= maxDiscomfortLevel) {
+				subscriber.pushDiscomfortWarning(discomfortLevel);
+			}
+		}
 	}
 
 	@Override
-	public void registerSubscriber(int discomfortLevel, Subscriber subscriber) {
-		// TODO Auto-generated method stub
+	public synchronized void registerSubscriber(int discomfortLevel, Subscriber subscriber) {
+		this.subscribers.put(subscriber, discomfortLevel);
 	}
 
 	@Override
 	public SensorReading getSensorReading() {
-		return SensorReads.poll();
+		return sensorReads.poll();
 	}
 
 	public void run() {
-		SensorReading sensorInput = null;
+		SensorReading sensorInput;
 		while(true) {
 			sensorInput = getSensorReading();
-			this.processReading(sensorInput);
+			if (sensorInput != null)
+				this.processReading(sensorInput);
 		}
 	}
 

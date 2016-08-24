@@ -23,18 +23,16 @@ public class SensorNetworkHarness {
 		sensor2.registerMonitor(Arrays.asList(monitor1, monitor2));
 		sensor3.registerMonitor(Arrays.asList(monitor2));
 
-		monitor1.registerSubscriber(3, subscriber1);
-		monitor2.registerSubscriber(2, subscriber1);
+		monitor1.registerSubscriber(4, subscriber1);
+		monitor2.registerSubscriber(3, subscriber1);
 		monitor2.registerSubscriber(2, subscriber2);
 
 		new Thread(sensor1).start();
 		new Thread(sensor2).start();
 		new Thread(sensor3).start();
-		new Thread(monitor1).start();
-		new Thread(monitor2).start();
 		new Thread(subscriber1).start();
 		new Thread(subscriber2).start();
-
+		new Thread(monitor1).start();
+		new Thread(monitor2).start();
 	}
-
 }
