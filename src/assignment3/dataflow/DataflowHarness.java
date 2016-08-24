@@ -18,14 +18,14 @@ public class DataflowHarness {
 		DynamicCheckedNode subscriber1 = new DynamicCheckedNode(new PrinterProcessor<DiscomfortWarning>("Printer 1"));
 		monitor1.subscribe(subscriber1);
 		
-		//DynamicCheckedNode subscriber2 = new DynamicCheckedNode(new PrinterProcessor<Object>("Printer 2"));
-		//monitor1.subscribe(subscriber2);
+		DynamicCheckedNode subscriber2 = new DynamicCheckedNode(new PrinterProcessor<Object>("Printer 2"));
+		monitor1.subscribe(subscriber2);
 		
 		sensor1.start();
 		//sensor2.start();
 		monitor1.start();
 		subscriber1.start();
-		//subscriber2.start();
+		subscriber2.start();
 		
 		sensor1.push(StartSignal.go);
 		//sensor2.push(StartSignal.go);

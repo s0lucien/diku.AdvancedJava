@@ -84,8 +84,8 @@ public class DynamicCheckedNode extends Thread {
 						((DynamicCheckedNode) sub).push(next);
 					}
 				}
-
 			} catch (InterruptedException e) {
+
 			}
 		}
 	}
