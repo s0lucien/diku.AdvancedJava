@@ -10,7 +10,9 @@ public class TestSomething {
     public void testBox() {
         Employee e = new Employee("bar",20, 250);
         new Box(e);
-        String s = ""
+        String s = "String";
+        new Box(s);
+
     }
 
 }
