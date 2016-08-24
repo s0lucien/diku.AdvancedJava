@@ -1,6 +1,9 @@
 package assignment3.djava;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * A box that encapsulates an object, providing access to fields and method
@@ -12,9 +15,8 @@ import java.lang.reflect.Field;
 public class Box {
 
 //	private Box objClass;
-//	private HashMap<String, Box> methods;
-	private Box[] fields;
-//	private HashMap<String, Box> fields = new HashMap<>();
+	private HashMap<String, Method> methods = new HashMap<>();
+	private HashMap<String, Field> fields = new HashMap<>();
 
 
 	/**
@@ -38,17 +40,15 @@ public class Box {
 //			this.methods.put(m.getName(), new Box(m));
 //		}
 		
-		Field[] fi = oc.getDeclaredFields();
-		this.fields = new Box[fi.length];
-		for (int i = 0; i < fi.length; i++) {
-			Field f = fi[i];
-			this.fields[i] = new Box(f.getName(), null);
-		}
-
-
-		new Box(oc.getName(), this.fields);
-
-//		System.out.println("breakpoint");
+//		Field[] fi = oc.getDeclaredFields();
+//		this.fields = new Box[fi.length];
+//		for (int i = 0; i < fi.length; i++) {
+//			Field f = fi[i];
+//			this.fields[i] = new Box(f.getName(), null);
+//		}
+//
+//
+//		new Box(oc.getName(), this.fields);
 
 		//new Box(objClass, resolvedFields);
 	}
@@ -72,7 +72,7 @@ public class Box {
 //		} catch (ClassNotFoundException ex) {
 //			Box exception = new Box(ex);
 //		}
-		// TODO
+
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class Box {
 	 *         on failure.
 	 */
 	Box get(String fieldName) {
-		return null;
+		return new Box(fields.get(fieldName));
 	}
 
 	/**
@@ -97,8 +97,14 @@ public class Box {
 	 * @return null on success, a boxed exception on failure.
 	 */
 	Box set(String fieldName, Box value) {
-		// TODO
-		return null;
+
+		// should we also do something about the boxedObject ?
+		try {
+			this.fields.get(fieldName).set(fieldName, value.boxedObject);
+			return null;
+		} catch (Exception e) {
+			return new Box(e);
+		}
 	}
 
 	/**
@@ -112,8 +118,16 @@ public class Box {
 	 *         (unboxed) null), or a boxed exception on failure.
 	 */
 	Box call(String methodName, Box... boxedArgs) {
-
-		return null;
+		ArrayList<Object> params = new ArrayList<>();
+		for (Box box:boxedArgs ) {
+			params.add(box.boxedObject);
+		}
+		Object[] paramsArray = params.toArray();
+		try {
+			return new Box(this.methods.get(methodName).invoke(this.boxedObject,paramsArray));
+		} catch (Exception e) {
+			return new Box(e);
+		}
 	}
 
 	/**
@@ -127,16 +141,13 @@ public class Box {
 	 */
 	@Override
 	public String toString() {
-//		String s = this.boxedObject.getClass().getName() + '['+fields.toString()+']';
-//		return s;
-		return "";
+		String s = this.boxedObject.getClass().getName() + "[";
+		for (String key: fields.keySet()) {
+			s += key + "=" + fields.get(key).toString() + "; ";
+		}
+		// this will keep going, check whether toString is declared in the boxed object before calling toString
+		return s+"]";
 
 	}
-	
-	/*private fieldsToSting(){
-		for (String key:
-			 ) {
-			
-		}
-	}*/
+
 }
