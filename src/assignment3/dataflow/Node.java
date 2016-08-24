@@ -24,7 +24,7 @@ public class Node<I, O> extends Thread {
 	/**
 	 * The list of subscribers to this node.
 	 */
-	private List<Node<O, ?>> subscribers;
+	private List<Node<? super O, ?>> subscribers;
 
 	/**
 	 * The queue of inputs (contains values of type I).
@@ -42,10 +42,10 @@ public class Node<I, O> extends Thread {
 	 * @param processor
 	 *            The {@link Processor} of this node.
 	 */
-	public Node(Processor processor) {
+	public Node(Processor<I,O> processor) {
 		this.processor = processor;
-		subscribers = new ArrayList();
-		inputs = new LinkedBlockingDeque(QUEUE_SIZE);
+		subscribers = new ArrayList<>();
+		inputs = new LinkedBlockingDeque<>(QUEUE_SIZE);
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class Node<I, O> extends Thread {
 	 * @param subscriber
 	 *            A subscriber that can receive values of type O.
 	 */
-	public void subscribe(Node subscriber) {
+	public void subscribe(Node<? super O, ?> subscriber) {
 		subscribers.add(subscriber);
 	}
 
@@ -81,12 +81,13 @@ public class Node<I, O> extends Thread {
 				Iterator<O> iter = processor.process(inputs.takeLast());
 				while (iter.hasNext()) {
 					O next = iter.next();
-					for (Node<O,? > sub : subscribers) {
+					for (Node<? super O,? > sub : subscribers) {
 						sub.push(next);
 					}
 				}
 
 			} catch (InterruptedException e) {
+			    e.printStackTrace();
 			}
 		}
 	}
