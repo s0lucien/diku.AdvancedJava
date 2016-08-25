@@ -34,12 +34,12 @@ public class Box {
 		this.boxedObject = obj;
 		Class<?> oc= this.boxedObject.getClass();
 //		this.objClass = new Box(oc);
-		
+
 //		Method[] me = oc.getDeclaredMethods();
 //		for (Method m:me) {
 //			this.methods.put(m.getName(), new Box(m));
 //		}
-		
+
 //		Field[] fi = oc.getDeclaredFields();
 //		this.fields = new Box[fi.length];
 //		for (int i = 0; i < fi.length; i++) {
