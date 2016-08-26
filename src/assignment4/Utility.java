@@ -43,8 +43,7 @@ public final class Utility {
 	 * mapping file
 	 */
 	@SuppressWarnings("unchecked")
-	public static Map<String, List<Integer>> getServerURLToDepartmentMapping(
-			String filePath) throws FileNotFoundException {
+	public static Map<String, List<Integer>> getServerURLToDepartmentMapping(String filePath) throws FileNotFoundException {
 		XStream xstream = new XStream(new StaxDriver());
 		Map<String, List<Integer>> serverURLToDepartmentMap = (Map<String, List<Integer>>) xstream
 				.fromXML(new FileInputStream(filePath));

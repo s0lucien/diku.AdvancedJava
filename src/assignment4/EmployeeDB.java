@@ -29,7 +29,7 @@ public interface EmployeeDB {
 	 * of all employees are incremented or for none of them are incremented,
 	 * errors through appropriate Exception
 	 * 
-	 * @param salaryIncrements
+	 * @param salaryIncrement
 	 *            Represents the salary increment for a department
 	 */
 	public void incrementSalaryOfDepartment(List<SalaryIncrement> salaryIncrement)

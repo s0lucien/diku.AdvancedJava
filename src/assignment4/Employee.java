@@ -12,7 +12,14 @@ public class Employee {
 	private String name;
 	private int department;
 	private float salary;
-	
+
+	public Employee(int id, String name, int department, float salary) {
+		this.id = id;
+		this.name = name;
+		this.department = department;
+		this.salary = salary;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -51,5 +58,10 @@ public class Employee {
 	@Override
 	public int hashCode() {
 		return id;
+	}
+
+	@Override
+	public String toString() {
+		return "Id: " + this.id + "; Name: " + this.name + "; Department: " + this.department + "; Salary: " + this.salary;
 	}
 }

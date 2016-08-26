@@ -1,9 +1,9 @@
 package assignment4;
 
+import org.eclipse.jetty.server.Server;
+
 import java.util.List;
 import java.util.Map;
-
-import org.eclipse.jetty.server.Server;
 
 /**
  * EmployeeDBHTTPSampleServer is an example how EmployeeDB server could be created and started.
@@ -13,7 +13,7 @@ import org.eclipse.jetty.server.Server;
  *
  */
 public class EmployeeDBHTTPSampleServer {
-	private static final String SERVER_CONFIG = "/absolute/path/to/clientdepartmentservermapping.xml";
+	private static final String SERVER_CONFIG = "/Users/martinmetaksov/IdeaProjects/diku.AdvancedJava.Assignment1/src/assignment4/clientdepartmentservermapping.xml";
 
 	public static void main(String[] args) throws Exception {
 
