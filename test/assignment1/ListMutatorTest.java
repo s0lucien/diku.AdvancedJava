@@ -16,7 +16,6 @@ public class ListMutatorTest {
 
     @Test
     public void testListMutatorParallel() throws InterruptedException {
-        // It is flickering, because the threads do not finish in the same sequence as they started.
         testListMutation(new ListMutatorParallel());
     }
 
@@ -26,7 +25,7 @@ public class ListMutatorTest {
     }
 
 
-    private ArrayList<Employee> dataSet() {
+    public static ArrayList<Employee> dataSet() {
         ArrayList<Employee> result = new ArrayList<>();
         result.add(new Employee("Bla", 18, 3000));
         result.add(new Employee("Blb", 19, 2500));
